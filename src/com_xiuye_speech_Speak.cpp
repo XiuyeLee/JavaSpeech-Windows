@@ -3,7 +3,7 @@
 #include<sphelper.h>
 #include<iostream>
 using namespace std;
-
+ISpVoice *pSpVoice = NULL;
 /*
  * Class:     com_xiuye_speech_Speak
  * Method:    coInitialize
@@ -13,6 +13,11 @@ JNIEXPORT void JNICALL Java_com_xiuye_speech_Speak_coInitialize
 (JNIEnv *, jobject) {
 
 	CoInitialize(NULL);
+
+	if(FAILED(CoCreateInstance(CLSID_SpVoice,NULL,CLSCTX_INPROC_SERVER,IID_ISpVoice,(void**)&pSpVoice))) {
+		cout << "Failed to create instance of ISpVoice!" << endl;
+		return;
+	}
 
 }
 
@@ -24,26 +29,20 @@ JNIEXPORT void JNICALL Java_com_xiuye_speech_Speak_coInitialize
 JNIEXPORT void JNICALL Java_com_xiuye_speech_Speak_speak
 (JNIEnv *env, jobject, jstring jstr) {
 
-
 //	const char * words1 = env->GetStringUTFChars(jstr,0);
 //	cout << words1 << endl;
 //	env->ReleaseStringUTFChars(jstr,words1);
 	const jchar * words = env->GetStringChars(jstr,0);
-	ISpVoice *pSpVoice = NULL;
+
 //	cout << CLSID_SpVoice << endl;
 //	cout << CLSCTX_INPROC_SERVER << endl;
 //	cout << IID_ISpVoice << endl;
-	if(FAILED(CoCreateInstance(CLSID_SpVoice,NULL,CLSCTX_INPROC_SERVER,IID_ISpVoice,(void**)&pSpVoice))){
-		cout << "Failed to create instance of ISpVoice!" << endl;
-		return;
-	}
 
 	pSpVoice->Speak((LPCWSTR)words,SPF_DEFAULT,NULL);//即使字符编码也不同，但是说的字（或者单词）的字音是正确的。
 
-	pSpVoice->Release();
+
 
 	env->ReleaseStringChars(jstr,words);
-
 
 	//wcout.imbue(locale(""));//直接就可以了不要使用wcout
 
@@ -57,6 +56,7 @@ JNIEXPORT void JNICALL Java_com_xiuye_speech_Speak_speak
 JNIEXPORT void JNICALL Java_com_xiuye_speech_Speak_coUninitialize
 (JNIEnv *, jobject) {
 
+	pSpVoice->Release();
 	CoUninitialize();
 }
 
