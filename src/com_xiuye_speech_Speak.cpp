@@ -12,9 +12,12 @@ ISpVoice *pSpVoice = NULL;
 JNIEXPORT void JNICALL Java_com_xiuye_speech_Speak_coInitialize
 (JNIEnv *, jobject) {
 
-	CoInitialize(NULL);
+	if(FAILED(CoInitialize(NULL))){
+		cout << "Failed to initialize COM!" << endl;
+		return;
+	}
 
-	if(FAILED(CoCreateInstance(CLSID_SpVoice,NULL,CLSCTX_INPROC_SERVER,IID_ISpVoice,(void**)&pSpVoice))) {
+	if(FAILED(CoCreateInstance(CLSID_SpVoice,NULL,CLSCTX_ALL/*CLSCTX_INPROC_SERVER*/,IID_ISpVoice,(void**)&pSpVoice))) {
 		cout << "Failed to create instance of ISpVoice!" << endl;
 		return;
 	}
