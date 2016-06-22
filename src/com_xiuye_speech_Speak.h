@@ -25,10 +25,82 @@ JNIEXPORT void JNICALL Java_com_xiuye_speech_Speak_speak
 
 /*
  * Class:     com_xiuye_speech_Speak
- * Method:    unCoinitialize
+ * Method:    coUninitialize
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_com_xiuye_speech_Speak_coUninitialize
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_xiuye_speech_Speak
+ * Method:    setSpeed
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_com_xiuye_speech_Speak_setSpeed
+  (JNIEnv *, jobject, jint);
+
+/*
+ * Class:     com_xiuye_speech_Speak
+ * Method:    getSpeed
+ * Signature: ()V
+ */
+JNIEXPORT jint JNICALL Java_com_xiuye_speech_Speak_getSpeed
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_xiuye_speech_Speak
+ * Method:    pause
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_xiuye_speech_Speak_pause
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_xiuye_speech_Speak
+ * Method:    resume
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_xiuye_speech_Speak_resume
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_xiuye_speech_Speak
+ * Method:    kindsOfVoice
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_xiuye_speech_Speak_kindsOfVoice
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_xiuye_speech_Speak
+ * Method:    setVoice
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_com_xiuye_speech_Speak_setVoice
+  (JNIEnv *, jobject, jint);
+
+/*
+ * Class:     com_xiuye_speech_Speak
+ * Method:    getVoice
+ * Signature: ()V
+ */
+JNIEXPORT jint JNICALL Java_com_xiuye_speech_Speak_getVoice
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_xiuye_speech_Speak
+ * Method:    setVolume
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_com_xiuye_speech_Speak_setVolume
+  (JNIEnv *, jobject, jint);
+
+/*
+ * Class:     com_xiuye_speech_Speak
+ * Method:    getVolume
+ * Signature: ()V
+ */
+JNIEXPORT jint JNICALL Java_com_xiuye_speech_Speak_getVolume
   (JNIEnv *, jobject);
 
 #ifdef __cplusplus
