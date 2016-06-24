@@ -1,3 +1,3 @@
 # JavaSpeech-Windows
-# maybe for win7
-# windows 7 x86 and x64 compatible
+# maybe just for win7
+# maybe windows 7 x86 and x64 compatible
