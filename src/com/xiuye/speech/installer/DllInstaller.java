@@ -27,7 +27,7 @@ public class DllInstaller {
 				this.install64DLL();
 				name = "SpeakX64";
 			}
-			
+
 			return name;
 		}
 
@@ -37,19 +37,21 @@ public class DllInstaller {
 
 		}
 
-		private void installDLL(String dllName) {			
+		private void installDLL(String dllName) {
 
 			File f = new File(dllName);
 			if(f.exists()){
 				return;
 			}
-			
+
 			byte[] data = new byte[1024];
+
+			int length = -1;
 
 			try (InputStream in = this.getResouece(dllName);
 					FileOutputStream out = new FileOutputStream(dllName)) {
-				while (in.read(data) != -1) {
-					out.write(data);
+				while ((length = in.read(data) )!= -1) {
+					out.write(data,0,length);
 				}
 				out.flush();
 			} catch (IOException e) {
@@ -59,31 +61,31 @@ public class DllInstaller {
 		}
 
 		private void install64DLL(){
-			
+
 			this.installDLL("SpeakX64.dll");
-			
+
 		}
-		
+
 		private void install32DLL(){
-			
+
 			this.installDLL("Speak.dll");
 		}
-		
+
 	}
 
-	
-	
+
+
 	public static String installDll() throws InterruptedException, ExecutionException {
 
-		
+
 		FutureTask<String> fTask = new FutureTask<String>(new InnerInstaller());
-		
+
 		Thread thread = new Thread(fTask);
-		
+
 		thread.start();
-		
+
 		return fTask.get();
-		
+
 	}
 
 }
