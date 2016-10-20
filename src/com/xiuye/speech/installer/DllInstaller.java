@@ -19,11 +19,10 @@ public class DllInstaller {
 
 			boolean f = VMValidate.isWinVM32();
 			String name = "";
-			if(f){
+			if (f) {
 				this.install32DLL();
 				name = "Speak";
-			}
-			else{
+			} else {
 				this.install64DLL();
 				name = "SpeakX64";
 			}
@@ -40,7 +39,7 @@ public class DllInstaller {
 		private void installDLL(String dllName) {
 
 			File f = new File(dllName);
-			if(f.exists()){
+			if (f.exists()) {
 				return;
 			}
 
@@ -48,10 +47,13 @@ public class DllInstaller {
 
 			int length = -1;
 
-			try (InputStream in = this.getResouece(dllName);
-					FileOutputStream out = new FileOutputStream(dllName)) {
-				while ((length = in.read(data) )!= -1) {
-					out.write(data,0,length);
+			/**
+			 * must be point out output length bytes,or dll-file outputed is to
+			 * bigger.
+			 */
+			try (InputStream in = this.getResouece(dllName); FileOutputStream out = new FileOutputStream(dllName)) {
+				while ((length = in.read(data)) != -1) {
+					out.write(data, 0, length);
 				}
 				out.flush();
 			} catch (IOException e) {
@@ -60,23 +62,20 @@ public class DllInstaller {
 
 		}
 
-		private void install64DLL(){
+		private void install64DLL() {
 
 			this.installDLL("SpeakX64.dll");
 
 		}
 
-		private void install32DLL(){
+		private void install32DLL() {
 
 			this.installDLL("Speak.dll");
 		}
 
 	}
 
-
-
 	public static String installDll() throws InterruptedException, ExecutionException {
-
 
 		FutureTask<String> fTask = new FutureTask<String>(new InnerInstaller());
 
